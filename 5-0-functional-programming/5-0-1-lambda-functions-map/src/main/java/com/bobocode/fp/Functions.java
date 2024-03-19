@@ -6,7 +6,7 @@ package com.bobocode.fp;
  * <p>
  * TODO: implement a method and verify it by running {@link FunctionsTest}
  * <p>
- * TODO: if you find this exercise valuable and you want to get more like it, <a href="https://www.patreon.com/bobocode"> 
+ * TODO: if you find this exercise valuable and you want to get more like it, <a href="https://www.patreon.com/bobocode">
  *     please support us on Patreon</a>
  *
  * @author Taras Boychuk
@@ -30,6 +30,11 @@ public class Functions {
 
         // todo: according to the javadoc add functions using lambda expression
 
+        intFunctionMap.addFunction("abs", Math::abs);
+        intFunctionMap.addFunction("sgn", a -> {return (int) Math.signum(a);});
+        intFunctionMap.addFunction("increment", a -> ++a);
+        intFunctionMap.addFunction("decrement", a -> --a);
+        intFunctionMap.addFunction("square", a -> a * a);
         return intFunctionMap;
     }
 }
