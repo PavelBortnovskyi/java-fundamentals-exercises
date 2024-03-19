@@ -8,7 +8,7 @@ public class FileReadersTest {
 
     @Test
     void testReadWholeFileOnEmptyFile() {
-        String fileContent = FileReaders.readWholeFile("empty.txt");
+        String fileContent = FileReaders.readWholeFile("src/test/resources/empty.txt");
 
         assertEquals("", fileContent);
 
@@ -16,7 +16,7 @@ public class FileReadersTest {
 
     @Test
     void testReadWholeFileOnFileWithEmptyLines() {
-        String fileContent = FileReaders.readWholeFile("lines.txt");
+        String fileContent = FileReaders.readWholeFile("src/test/resources/lines.txt");
 
         assertEquals("Hey!\n" +
                 "\n" +
@@ -27,7 +27,7 @@ public class FileReadersTest {
 
     @Test
     void testReadWholeFile() {
-        String fileContent = FileReaders.readWholeFile("simple.txt");
+        String fileContent = FileReaders.readWholeFile("src/test/resources/simple.txt");
 
         assertEquals("Hello!\n" + "It's a test file.", fileContent);
     }
