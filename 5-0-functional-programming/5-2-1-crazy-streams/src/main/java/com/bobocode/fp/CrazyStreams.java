@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * {@link CrazyStreams} is an exercise class. Each method represent some operation with a collection of accounts that
@@ -207,8 +208,9 @@ public class CrazyStreams {
      */
     public Map<Character, Long> getCharacterFrequencyIgnoreCaseInFirstAndLastNames(int nameLengthBound) {
         return accounts.stream()
-                .filter(a -> (a.getFirstName().length() >= nameLengthBound) && (a.getLastName().length() >= nameLengthBound))
-                .flatMap(a -> (a.getFirstName() + a.getLastName()).toLowerCase().chars().mapToObj(c -> (char) c))
+                .flatMap(a -> Stream.of(a.getFirstName(), a.getLastName())
+                        .filter(s -> s.length() >= nameLengthBound)
+                        .flatMap(s -> s.toLowerCase().chars().mapToObj(c -> (char) c)))
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
 }
