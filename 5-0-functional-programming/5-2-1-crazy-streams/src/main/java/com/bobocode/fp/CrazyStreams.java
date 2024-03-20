@@ -207,7 +207,7 @@ public class CrazyStreams {
      */
     public Map<Character, Long> getCharacterFrequencyIgnoreCaseInFirstAndLastNames(int nameLengthBound) {
         return accounts.stream()
-                .filter(a -> (a.getFirstName().length() >= nameLengthBound) || (a.getLastName().length() >= nameLengthBound))
+                .filter(a -> (a.getFirstName().length() >= nameLengthBound) && (a.getLastName().length() >= nameLengthBound))
                 .flatMap(a -> (a.getFirstName() + a.getLastName()).toLowerCase().chars().mapToObj(c -> (char) c))
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
