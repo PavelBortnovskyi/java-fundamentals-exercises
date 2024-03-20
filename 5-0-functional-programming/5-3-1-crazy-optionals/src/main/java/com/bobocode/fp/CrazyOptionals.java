@@ -147,9 +147,7 @@ public class CrazyOptionals {
      * @return account got from either accountProvider or fallbackProvider
      */
     public static Account getAccountWithFallback(AccountProvider accountProvider, AccountProvider fallbackProvider) {
-        return accountProvider.getAccount()
-                .orElseGet(() -> fallbackProvider.getAccount()
-                        .orElseThrow(NoSuchElementException::new));
+        return accountProvider.getAccount().or(fallbackProvider::getAccount).orElseThrow(NoSuchElementException::new);
     }
 
     /**

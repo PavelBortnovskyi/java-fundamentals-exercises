@@ -49,7 +49,9 @@ public class CrazyLambdas {
      * @return function that repeats Strings
      */
     public static BiFunction<String, Integer, String> stringMultiplier() {
-        return (s, n) -> IntStream.rangeClosed(1, n).mapToObj(i -> s).collect(Collectors.joining());
+        return (s, n) -> IntStream.rangeClosed(1, n)
+                .mapToObj(i -> s)
+                .collect(Collectors.joining());
     }
 
     /**
