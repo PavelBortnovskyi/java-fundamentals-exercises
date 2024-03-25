@@ -62,7 +62,7 @@ public class CrazyGenerics {
      */
     public interface Converter<T,R> { // todo: introduce type parameters
         // todo: add convert method
-        public R convert(T value);
+        R convert(T value);
     }
 
     /**
@@ -85,7 +85,8 @@ public class CrazyGenerics {
          * @param val a new value
          */
         public void put(T val) {
-           if (this.max.compareTo(val) < 0) this.max = val; // todo: update parameter and implement the method
+            // todo: update parameter and implement the method
+           if (val.compareTo(this.max) > 0) this.max = val;
         }
 
         public T getMax() {
@@ -200,7 +201,9 @@ public class CrazyGenerics {
          */
         public static <T extends BaseEntity> boolean hasDuplicates(List<T> entities, T targetEntity) {
             // todo: update method signature and implement it
-            return entities.stream().filter(e -> e.getUuid() == targetEntity.getUuid()).toList().size() > 1;
+            return entities.stream()
+                    .filter(e -> e.getUuid() == targetEntity.getUuid())
+                    .count() > 1;
         }
 
         /**
@@ -248,15 +251,13 @@ public class CrazyGenerics {
             Objects.checkIndex(i, elements.size());
             Objects.checkIndex(j, elements.size());
             // todo: complete method implementation
-            Object elementI = elements.get(i);
-            Object elementJ = elements.get(j);
-            try {
-                java.lang.reflect.Method setMethod = elements.getClass().getMethod("set", int.class, Object.class);
-                setMethod.invoke(elements, i, elementJ);
-                setMethod.invoke(elements, j, elementI);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            swapTyped(elements, i, j);
+        }
+
+        private static <T> void swapTyped(List<T> elements, int i, int j) {
+            T temp = elements.get(i);
+            elements.set(i, elements.get(j));
+            elements.set(j, temp);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.bobocode.basics;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,6 +18,8 @@ import java.util.Map;
  */
 public class HeterogeneousMaxHolder {
 
+    private Map<Class<?>, Object> storage = new HashMap<>();
+
     /**
      * A method put stores a provided value by its type, if the value is greater than the current maximum. In other words, the logic
      * of this method makes sure that only max value is stored and everything else is ignored.
@@ -31,6 +35,17 @@ public class HeterogeneousMaxHolder {
      * @return a smaller value among the provided value and the current maximum
      */
     // todo: implement a method according to javadoc
+    public <T extends Comparable<? super T>> T put(Class<T> key, T value) {
+//        if (storage.containsKey(key) && value.compareTo(key.cast(storage.get(key))) > 0) {
+//            Object currentMax = storage.get(key);
+//            storage.replace(key, value);
+//            return key.cast(currentMax);
+//        } else if (!storage.containsKey(key)) {
+//            storage.put(key, value);
+//            return null;
+//        } else return value;
+        return put(key, value, Comparator.naturalOrder());
+    }
 
     /**
      * An overloaded method put implements the same logic using a custom comparator. A given comparator is wrapped with
@@ -45,6 +60,17 @@ public class HeterogeneousMaxHolder {
      * @return a smaller value among the provided value and the current maximum
      */
     // todo: implement a method according to javadoc
+    public <T> T put(Class<T> key, T value, Comparator<? super T> comparator) {
+        Object currentMax = getMax(key);
+        if (currentMax == null) {
+            storage.put(key, value);
+            return null;
+        }
+        if (comparator.compare(value, key.cast(currentMax)) > 0) {
+            storage.replace(key, value);
+            return key.cast(currentMax);
+        } else return value;
+    }
 
     /**
      * A method getMax returns a max value by the given type. If no value is stored by this type, then it returns null.
@@ -54,4 +80,7 @@ public class HeterogeneousMaxHolder {
      * @return current max value or null
      */
     // todo: implement a method according to javadoc
+    public <T> T getMax(Class<T> key) {
+        return key.cast(storage.getOrDefault(key, null));
+    }
 }
