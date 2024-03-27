@@ -15,6 +15,22 @@ import com.bobocode.util.ExerciseNotCompletedException;
  * @author Ivan Virchenko
  */
 public class LinkedQueue<T> implements Queue<T> {
+    private static class Node<T> {
+        T element;
+        Node<T> nextNode;
+
+        public static <T> Node<T> valueOf(T element) {
+            return new Node<>(element);
+        }
+
+        private Node(T element) {
+            this.element = element;
+        }
+    }
+
+    int size = 0;
+    Node<T> head;
+    Node<T> tail;
 
     /**
      * Adds an element to the end of the queue.
@@ -22,7 +38,17 @@ public class LinkedQueue<T> implements Queue<T> {
      * @param element the element to add
      */
     public void add(T element) {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        // todo: implement this method
+        Node<T> node = Node.valueOf(element);
+
+        if (this.isEmpty()) {
+            head = node;
+            tail = head;
+        } else {
+           tail.nextNode = node;
+           tail = node;
+        }
+        size++;
     }
 
     /**
@@ -31,7 +57,13 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return an element that was retrieved from the head or null if queue is empty
      */
     public T poll() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        // todo: implement this method
+        if (this.isEmpty()) return null;
+        T element = head.element;
+        head = head.nextNode;
+        if (head == null) tail = null;
+        size--;
+        return element;
     }
 
     /**
@@ -40,7 +72,8 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return an integer value that is a size of queue
      */
     public int size() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+       // todo: implement this method
+        return size;
     }
 
     /**
@@ -49,6 +82,7 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return {@code true} if the queue is empty, returns {@code false} if it's not
      */
     public boolean isEmpty() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        // todo: implement this method
+        return size == 0;
     }
 }
