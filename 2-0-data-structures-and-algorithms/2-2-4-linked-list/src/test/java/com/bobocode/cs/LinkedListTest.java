@@ -163,7 +163,7 @@ public class LinkedListTest {
     void addByIndexToTheEndOfList() {
         addInternalElements(98, 64, 23, 1, 3, 4);
 
-        int newElementIndex = getInternalSize();
+        int newElementIndex = getInternalSize() - 1;
         intList.add(newElementIndex, 44);
 
         assertThat(getInternalElement(newElementIndex)).isEqualTo(44);
